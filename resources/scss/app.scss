@@ -1,0 +1,44 @@
+// ****************** Fonts
+//@import url('https://fonts.googleapis.com/css?family=Nunito');
+//@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700');
+//@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,700;1,400&display=swap');
+//@import url('https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400');
+
+// ****************** Font Awesome 6
+@import '~@fortawesome/fontawesome-free/scss/fontawesome';
+@import '~@fortawesome/fontawesome-free/scss/regular';
+@import '~@fortawesome/fontawesome-free/scss/solid';
+@import '~@fortawesome/fontawesome-free/scss/brands';
+
+// ****************** Font awesome 4
+//@import "~font-awesome/scss/font-awesome";
+//@import "~font-awesome";
+
+
+// ****************** Datepicker plugin
+//@import "~bootstrap-datepicker-legacy/css/datepicker.css";
+
+
+// ****************** Common
+@import 'common';
+
+// ****************** Variables
+@import 'variables';
+
+// ****************** Bootstrap
+@import "~bootstrap/scss/bootstrap";
+
+// ****************** AdminLTE3
+//@import "~admin-lte/build/scss/adminlte";
+
+body{
+    ////max-width: 960px;
+    //background-color: white;
+    //padding: 1rem;
+    //margin: 1rem auto;
+}
+
+h1{
+    color: blue;
+    font-weight: bold;
+}
