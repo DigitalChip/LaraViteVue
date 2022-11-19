@@ -1,7 +1,4 @@
-import Vue from 'vue';
 import Vuex from 'vuex'
-
-Vue.use(Vuex);
 
 const store = new Vuex.Store({
     state: {
@@ -10,6 +7,9 @@ const store = new Vuex.Store({
     mutations: {
         INCREMENT(state) {
             state.count++
+        },
+        DECREMENT(state) {
+            state.count--
         },
     },
     actions: {}

@@ -1,13 +1,15 @@
-<template lang="">
+<template>
     <div>
-        <h1>About</h1>
+        <h2>About</h2>
     </div>
 </template>
+
 <script>
-export default {
-    name: 'about'
-}
+    export default {
+        name: 'about'
+    }
 </script>
-<style lang="">
+
+<style>
 
 </style>
