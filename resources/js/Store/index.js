@@ -1,8 +1,10 @@
 import Vuex from 'vuex'
 
+import auth from './modules/auth'
+
 const store = new Vuex.Store({
     state: {
-        count: 0,
+        count: 6,
     },
     mutations: {
         INCREMENT(state) {
@@ -12,7 +14,10 @@ const store = new Vuex.Store({
             state.count--
         },
     },
-    actions: {}
+    actions: {},
+    modules:{
+        auth
+    }
 })
 
 export default store;

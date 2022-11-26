@@ -8,10 +8,8 @@
     @vite('resources/scss/app.scss')
 </head>
 <body>
-    <h1>HELLO WORLD</h1>
-    <hr>
     <div id="app">
-        
+
     </div>
     @vite('resources/js/app.js')
 {{-- <script src="{{ mix('js/app.js') }}"></script> --}}

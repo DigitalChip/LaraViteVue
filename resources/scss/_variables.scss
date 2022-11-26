@@ -6,6 +6,7 @@ $font-family-sans-serif: 'PT Sans', sans-serif;
 $font-size-base: 0.9rem;
 $line-height-base: 1.6;
 
+
 // Colors
 //$blue: #109cf1;
 //$indigo: #6574cd;
@@ -27,6 +28,13 @@ $line-height-base: 1.6;
 //$tablegray: #707683;
 
 
+
+// ****** Bootstrap variables redefine
+$enable-rounded: false;
+
+$input-btn-focus-width:         .9rem;
+$input-btn-focus-color-opacity: .1;
+$input-btn-focus-box-shadow: none;
 
 
 

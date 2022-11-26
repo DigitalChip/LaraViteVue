@@ -13,16 +13,15 @@ use Illuminate\Support\Facades\Route;
 // API v1 routes
 
 Route::group(['prefix'=>'v1'], function (){
+    // Auth
+    Route::post('/register', [UserController::class, 'register']);
+    Route::post('/login', [UserController::class, 'login']);
 
+    // Users
     Route::get('/users', [UserController::class, 'index']);
+    Route::get('/user/{id}', [UserController::class, 'getUser']);
 
-    Route::get('/user/{id}', function (Request $request, int $id) {
-        $user = User::findOrFail($id);
-        return response()->json([
-            'status' => 'ok',
-            'user' => $user->jsonSerialize()
-        ]);
-    });
+    // Others
 
 });
 

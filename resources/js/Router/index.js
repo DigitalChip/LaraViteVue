@@ -11,12 +11,14 @@
 //     routes,
 // })
 
-import { createRouter, createWebHistory} from 'vue-router'
+import {createRouter, createWebHistory} from 'vue-router'
 import routes from './routes'
 
 const router = createRouter({
-  history: createWebHistory(),
-  routes
+    history: createWebHistory(),
+    routes,
+    linkActiveClass: "active",
+    linkExactActiveClass: "active",
 })
 
 export default router

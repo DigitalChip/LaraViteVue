@@ -37,4 +37,4 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 // });
 
 // Import need scripts from Bootstrap5
-import * as bootstrap from 'bootstrap'
+import * as bootstrap from '~bootstrap'
