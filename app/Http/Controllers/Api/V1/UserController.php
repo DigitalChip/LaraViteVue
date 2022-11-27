@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class UserController extends ApiController
@@ -23,29 +24,30 @@ class UserController extends ApiController
         return response()->json([
             'status' => 'ok',
             'usersCount' => $users->count(),
-            'users' => $users->jsonSerialize()
+            'users' => $users->jsonSerialize(),
         ]);
     }
 
     /**
      * Get user by ID
      *
-     * @param int $id
+     * @param  int  $id
      * @return JsonResponse
      */
     public function getUser(int $id)
     {
         $user = User::findOrFail($id);
+
         return response()->json([
             'status' => 'ok',
-            'user' => $user->jsonSerialize()
+            'user' => $user->jsonSerialize(),
         ]);
     }
 
     /**
      * Register new user
      *
-     * @param Request $request
+     * @param  Request  $request
      * @return JsonResponse
      */
     public function register(Request $request)
@@ -53,19 +55,30 @@ class UserController extends ApiController
         $validator = Validator::make($request->all(), [
             'name' => 'required|unique:users,name',
             'email' => 'required|email|unique:users,email',
-            'password' => 'required',
+            'password' => 'required|min:3',
             'confirm_password' => 'required|same:password',
         ]);
 
         if ($validator->fails()) {
-            return $this->sendError('Validation Error.', $validator->errors());
+//            Log::warning($validator->errors());
+            return $this->sendError('Validation Error!', $validator->errors());
         }
 
         $input = $request->all();
+//        Log::info($input);
+//        dd();
         $input['password'] = bcrypt($input['password']);
+
+//        Log::info($input);
+
         $user = User::create($input);
-        $success['token'] = $user->createToken('MyApp')->plainTextToken;
-        $success['name'] = $user->name;
+//        Log::warning($user);
+
+//        $success['token'] = $user->createToken('lara-vite-vue')->accessToken;
+//        $success['name'] = $user->name;
+        $success['user'] = $user;
+
+//        Log::debug($success);
 
         return $this->sendResponse($success, 'User register successfully.');
     }
@@ -77,7 +90,7 @@ class UserController extends ApiController
     {
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             $user = Auth::user();
-            $success['token'] = $user->createToken('MyApp')->accessToken;
+            $success['token'] = $user->createToken('lara-vite-vue')->accessToken;
             $success['name'] = $user->name;
 
             return $this->sendResponse($success, 'User login successfully.');

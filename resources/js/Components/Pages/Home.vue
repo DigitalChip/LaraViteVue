@@ -22,8 +22,9 @@
 
 
 <script>
+
 import {mapState} from 'vuex'
-import UserForm from '../UserAddForm.vue'
+import UserForm from '@/Components/UserAddForm.vue'
 
 // url: 'http://laraprj.loc/api/v1/user/${id}'
 

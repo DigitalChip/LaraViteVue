@@ -1,5 +1,5 @@
-import axs from 'axios'
+import api from 'axios'
 
-axs.defaults.baseURL = 'http://laraprj.loc/api/v1'
+api.defaults.baseURL = 'http://laraprj.loc/api/v1'
 
-export default axs
+export default api

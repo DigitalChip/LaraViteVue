@@ -9,10 +9,9 @@ use Illuminate\Support\Facades\Route;
 //    return $request->user();
 //});
 
-
 // API v1 routes
 
-Route::group(['prefix'=>'v1'], function (){
+Route::group(['prefix' => 'v1'], function () {
     // Auth
     Route::post('/register', [UserController::class, 'register']);
     Route::post('/login', [UserController::class, 'login']);
@@ -22,6 +21,4 @@ Route::group(['prefix'=>'v1'], function (){
     Route::get('/user/{id}', [UserController::class, 'getUser']);
 
     // Others
-
 });
-

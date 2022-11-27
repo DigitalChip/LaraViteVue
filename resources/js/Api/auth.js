@@ -1,9 +1,20 @@
-import axs from './index'
+import api from './index'
 
 const register = credentials => {
-    return axs.post('/users', {user: credentials})
+    return api.post('/register', {...credentials})
 }
 
+const login = credentials => {
+    return api.post('/login', {...credentials})
+}
+
+const getCurrentUser = () => {
+    return api.get('/user')
+}
+
+
 export default {
-    register
+    register,
+    login,
+    getCurrentUser
 }

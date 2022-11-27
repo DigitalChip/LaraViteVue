@@ -4,7 +4,6 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 
-
 class Test extends Command
 {
     /**
@@ -28,7 +27,6 @@ class Test extends Command
      */
     public function handle(): int
     {
-
         return Command::SUCCESS;
     }
 }

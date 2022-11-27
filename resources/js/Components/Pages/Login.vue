@@ -2,13 +2,8 @@
 
     <div class="row">
         <div class="col-md-6 col-xs-12 offset-md-3">
-            <h1 class="display-5">Registration</h1>
-            <div class="lead mb-3">You can register on this site. Fill in your credentials and submit.</div>
+            <h1 class="display-5">Login</h1>
             <form @submit.prevent="onSubmit">
-                <div class="mb-3">
-                    <label for="name" class="form-label">Name</label>
-                    <input type="text" class="form-control" id="name" v-model="name">
-                </div>
                 <div class="mb-3">
                     <label for="email" class="form-label">Email address</label>
                     <input type="email" class="form-control" id="email" v-model="email" aria-describedby="emailHelp">
@@ -18,11 +13,8 @@
                     <label for="password" class="form-label">Password</label>
                     <input type="password" class="form-control" id="password" v-model="password">
                 </div>
-                <div class="mb-3">
-                    <label for="confirm_password" class="form-label">Confirm password</label>
-                    <input type="password" class="form-control" id="confirm_password" v-model="confirm_password">
-                </div>
-                <button type="submit" class="btn btn-primary px-5" :disabled="isSubmitting">Sign up</button>
+
+                <button type="submit" class="btn btn-primary px-5" :disabled="isSubmitting">Sign in</button>
             </form>
         </div>
     </div>
@@ -34,31 +26,28 @@ import {mapState} from 'vuex'
 import {actionTypes} from '@/Store/modules/auth'
 
 export default {
-    name: "app-register",
+    name: "app-login",
     computed: {
         ...mapState({
             isSubmitting: state => state.auth.isSubmitting
         })
+        // Or use old ES code
         // isSubmitting() {
         //     return this.$store.state.auth.isSubmitting
         // }
     },
     data() {
         return {
-            name: '',
             email: '',
             password: '',
-            confirm_password: '',
         }
     },
     methods: {
         onSubmit() {
             // this.$store.commit('registerStart')
-            this.$store.dispatch(actionTypes.register, {
-                name: this.name,
+            this.$store.dispatch(actionTypes.login, {
                 email: this.email,
                 password: this.password,
-                confirm_password: this.confirm_password
             }).then(user => {
                 // console.log('USER REGISTERED: ', user)
                 this.$router.push({name: 'home'})

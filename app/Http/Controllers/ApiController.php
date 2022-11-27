@@ -11,7 +11,6 @@ class ApiController extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-
     /**
      * Success response method.
      */
@@ -22,6 +21,7 @@ class ApiController extends BaseController
             'data' => $result,
             'message' => $message,
         ];
+
         return response()->json($response, $http_code);
     }
 
@@ -35,11 +35,10 @@ class ApiController extends BaseController
             'message' => $error,
         ];
 
-        if (!empty($errorMessages)) {
+        if (! empty($errorMessages)) {
             $response['data'] = $errorMessages;
         }
+
         return response()->json($response, $http_code);
     }
-
-
 }
