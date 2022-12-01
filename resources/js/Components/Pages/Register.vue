@@ -19,8 +19,9 @@
                     <input type="password" class="form-control" id="password" v-model="password">
                 </div>
                 <div class="mb-3">
-                    <label for="confirm_password" class="form-label">Confirm password</label>
-                    <input type="password" class="form-control" id="confirm_password" v-model="confirm_password">
+                    <label for="password_confirmation" class="form-label">Confirm password</label>
+                    <input type="password" class="form-control" id="password_confirmation"
+                           v-model="password_confirmation">
                 </div>
                 <button type="submit" class="btn btn-primary px-5" :disabled="isSubmitting">Sign up</button>
             </form>
@@ -48,7 +49,7 @@ export default {
             name: '',
             email: '',
             password: '',
-            confirm_password: '',
+            password_confirmation: '',
         }
     },
     methods: {
@@ -58,7 +59,7 @@ export default {
                 name: this.name,
                 email: this.email,
                 password: this.password,
-                confirm_password: this.confirm_password
+                password_confirmation: this.password_confirmation
             }).then(user => {
                 // console.log('USER REGISTERED: ', user)
                 this.$router.push({name: 'home'})

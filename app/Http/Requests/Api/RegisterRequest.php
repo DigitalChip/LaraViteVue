@@ -36,7 +36,7 @@ class RegisterRequest extends FormRequest
 //                    ->symbols()
 //                    ->uncompromised(),
             'password' => 'required|confirmed|min:3',
-            'confirm_password' => 'required',
+            'password_confirmation' => 'required',
         ];
     }
 
