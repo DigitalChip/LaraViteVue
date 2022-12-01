@@ -2,16 +2,23 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Controllers\ApiController;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\RegisterRequest;
 use App\Models\User;
+use App\Traits\ApiResponser;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
+use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class UserController extends ApiController
+class UserController extends Controller
 {
+    use ApiResponser;
+
     /**
      * Get all users
      *
@@ -21,8 +28,7 @@ class UserController extends ApiController
     {
         $users = User::all();
 
-        return response()->json([
-            'status' => 'ok',
+        return $this->successResponse(null, [
             'usersCount' => $users->count(),
             'users' => $users->jsonSerialize(),
         ]);
@@ -31,71 +37,20 @@ class UserController extends ApiController
     /**
      * Get user by ID
      *
-     * @param  int  $id
+     * @param int $id
      * @return JsonResponse
      */
     public function getUser(int $id)
     {
-        $user = User::findOrFail($id);
+        try {
+            $user = User::findOrFail($id);
+        } catch (ModelNotFoundException $e) {
+            return $this->errorResponse('User not found', $e->getMessage());
+        }
 
-        return response()->json([
-            'status' => 'ok',
+        return $this->successResponse(null, [
             'user' => $user->jsonSerialize(),
         ]);
     }
 
-    /**
-     * Register new user
-     *
-     * @param  Request  $request
-     * @return JsonResponse
-     */
-    public function register(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|unique:users,name',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|min:3',
-            'confirm_password' => 'required|same:password',
-        ]);
-
-        if ($validator->fails()) {
-//            Log::warning($validator->errors());
-            return $this->sendError('Validation Error!', $validator->errors());
-        }
-
-        $input = $request->all();
-//        Log::info($input);
-//        dd();
-        $input['password'] = bcrypt($input['password']);
-
-//        Log::info($input);
-
-        $user = User::create($input);
-//        Log::warning($user);
-
-//        $success['token'] = $user->createToken('lara-vite-vue')->accessToken;
-//        $success['name'] = $user->name;
-        $success['user'] = $user;
-
-//        Log::debug($success);
-
-        return $this->sendResponse($success, 'User register successfully.');
-    }
-
-    /**
-     * Login user
-     */
-    public function login(Request $request)
-    {
-        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-            $user = Auth::user();
-            $success['token'] = $user->createToken('lara-vite-vue')->accessToken;
-            $success['name'] = $user->name;
-
-            return $this->sendResponse($success, 'User login successfully.');
-        } else {
-            return $this->sendError('Unauthorised.', ['error' => 'Unauthorised']);
-        }
-    }
 }
