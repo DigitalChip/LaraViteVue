@@ -3,6 +3,7 @@ import authApi from '@/Api/auth'
 const state = {
     isSubmitting: false,
     currentUser: null,
+    userToken: null,
     validationErrors: null,
     isLoggedIn: null,
     isAnonymous: null
@@ -24,6 +25,7 @@ export const actionTypes = {
 
 export const gettersTypes = {
     currentUser: '[auth] currentUser',
+    userToken: '[auth] userToken',
     isLoggedIn: '[auth] isLoggedIn',
     isAnonymous: '[auth] isAnonymous',
 }
@@ -31,6 +33,9 @@ export const gettersTypes = {
 const getters = {
     [gettersTypes.currentUser]: state => {
         return state.currentUser
+    },
+    [gettersTypes.userToken]: state => {
+        return state.userToken
     },
     [gettersTypes.isLoggedIn]: state => {
         return Boolean(state.isLoggedIn)
@@ -47,7 +52,8 @@ const mutations = {
     },
     [mutationTypes.registerSuccess](state, payload) {
         state.isSubmitting = false
-        state.currentUser = payload
+        state.currentUser = payload.user
+        state.userToken = payload.token
         state.isLoggedIn = true
     },
     [mutationTypes.registerFailure](state, payload) {
@@ -61,7 +67,8 @@ const mutations = {
     },
     [mutationTypes.loginSuccess](state, payload) {
         state.isSubmitting = false
-        state.currentUser = payload
+        state.currentUser = payload.user
+        state.userToken = payload.token
         state.isLoggedIn = true
     },
     [mutationTypes.loginFailure](state, payload) {
@@ -83,7 +90,7 @@ const actions = {
             })
                 .then(response => {
                     const res = response.data
-                    context.commit(mutationTypes.registerSuccess, res.data.user)
+                    context.commit(mutationTypes.registerSuccess, res.data)
                     // console.log('Success: ', res.message)
                     resolve(res)
                 })
@@ -106,7 +113,7 @@ const actions = {
             })
                 .then(response => {
                     const res = response.data
-                    context.commit(mutationTypes.loginSuccess, res.data.user)
+                    context.commit(mutationTypes.loginSuccess, res.data)
                     // console.log('Success: ', res.message)
                     resolve(res)
                 })
@@ -127,43 +134,3 @@ export default {
     mutations,
     actions,
 }
-
-// FAILTURE REGISTRATION JSON
-// {
-//     "success": false,
-//     "message": "Validation Error!",
-//     "data": {
-//          "name": [
-//              "Такое значение поля Имя уже существует."
-//          ],
-//              "email": [
-//              "Такое значение поля E-Mail адрес уже существует."
-//          ]
-//      }
-// }
-
-
-// SUCCESSFULLY REGISTRATION JSON
-// {
-//     "success": true,
-//     "data": {
-//     "token": {
-//         "name": "lara-vite-vue",
-//         "abilities": [ "*" ],
-//         "expires_at": null,
-//         "tokenable_id": 68,
-//         "tokenable_type": "App\\Models\\User",
-//         "updated_at": "2022-11-26T18:40:53.000000Z",
-//         "created_at": "2022-11-26T18:40:53.000000Z",
-//         "id": 27
-//     },
-//     "user": {
-//         "name": "Axel Mullen",
-//             "email": "wuho@mailinator.com",
-//             "updated_at": "2022-11-26T18:40:53.000000Z",
-//             "created_at": "2022-11-26T18:40:53.000000Z",
-//             "id": 68
-//          }
-//     },
-//     "message": "User register successfully."
-// }

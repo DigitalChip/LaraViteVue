@@ -36,7 +36,9 @@ export default {
         ...mapState({
             count: state => state.count
         }),
-        userscount: function () { this.usersData.usersCount},
+        userscount: function () {
+            this.usersData.usersCount
+        },
     },
     components: {
         UserForm
@@ -47,7 +49,6 @@ export default {
             usersData: {}
         }
     },
-
     mounted() {
         this.getUser(5)
         this.getUserData()

@@ -49,8 +49,8 @@ export default {
                 email: this.email,
                 password: this.password,
             }).then(user => {
-                // console.log('USER REGISTERED: ', user)
-                this.$router.push({name: 'home'})
+                 console.log('USER REGISTERED: ', user)
+                // this.$router.push({name: 'home'})
             })
         }
     }
