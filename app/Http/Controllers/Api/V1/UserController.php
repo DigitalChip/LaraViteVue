@@ -3,17 +3,10 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Api\RegisterRequest;
 use App\Models\User;
 use App\Traits\ApiResponser;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Validator;
-use Symfony\Component\HttpKernel\Exception\HttpException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class UserController extends Controller
 {
@@ -30,7 +23,7 @@ class UserController extends Controller
 
         return $this->successResponse(null, [
             'usersCount' => $users->count(),
-            'users' => $users->jsonSerialize(),
+            'users' => $users,
         ]);
     }
 
@@ -49,7 +42,7 @@ class UserController extends Controller
         }
 
         return $this->successResponse(null, [
-            'user' => $user->jsonSerialize(),
+            'user' => $user
         ]);
     }
 
