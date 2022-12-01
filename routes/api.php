@@ -12,18 +12,16 @@ use Illuminate\Support\Facades\Route;
 
 // API v1 routes
 
-Route::group(['prefix' => 'v1' ], function () {
+Route::group(['prefix' => 'v1'], function () {
     // Auth
     Route::post('/register', [AuthController::class, 'register']);
     Route::post('/login', [AuthController::class, 'login']);
 
-
-//    Route::group(['middleware' => 'auth:sanctum'], function(){
-        // Users
-        Route::get('/users', [UserController::class, 'index']);
-        Route::get('/user/{id}', [UserController::class, 'getUser']);
-//    });
-
+    // Users
+    Route::prefix('/users')->group(function () {
+        Route::get('/', [UserController::class, 'index']);
+        Route::get('/{id}', [UserController::class, 'getUser'])->where(['id' => '[0-9]+']);
+    });
 
     // Others
 });
