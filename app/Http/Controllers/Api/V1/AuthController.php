@@ -42,7 +42,7 @@ class AuthController extends Controller
 //        $valid_credentials = $request->only(['email','password']);
 
         if (!Auth::attempt($valid_credentials)) {
-            return $this->errorResponse('Unauthorised.', ['Unauthorised'],422);
+            return $this->errorResponse('Unauthorised.', ['Unauthorised'],401);
         }
 
         $user = Auth::user();
