@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 class AuthController extends Controller
 {
     use ApiResponser;
+
     /**
      * Register new user
      *
@@ -21,18 +22,12 @@ class AuthController extends Controller
      */
     public function register(RegisterRequest $request)
     {
-//        if ($request->validator->fails()) {
-////            Log::warning($validator->errors());
-//            return $this->sendError('Validation Error!', $validator->errors());
-//        }
-
         $valid_credentials = $request->validated();
         $valid_credentials['password'] = bcrypt($valid_credentials['password']);
 
         $new_user = User::create($valid_credentials);
 
         $success['token'] = $new_user->createToken($new_user->email)->plainTextToken;
-//        $success['name'] = $new_user->name;
         $success['user'] = $new_user;
 
         return $this->successResponse('User register successfully.', $success );
@@ -47,7 +42,7 @@ class AuthController extends Controller
 //        $valid_credentials = $request->only(['email','password']);
 
         if (!Auth::attempt($valid_credentials)) {
-            return $this->errorResponse('Unauthorised.', ['Unauthorised'],401);
+            return $this->errorResponse('Unauthorised.', ['Unauthorised'],422);
         }
 
         $user = Auth::user();
